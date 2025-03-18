@@ -1,0 +1,13 @@
+gg:
+  jte:
+    development-mode: true
+spring:
+  application:
+    name: jte-forms
+  sql:
+    init:
+      mode: always
+  docker:
+    compose:
+      enabled: true
+      lifecycle-management: start_and_stop
