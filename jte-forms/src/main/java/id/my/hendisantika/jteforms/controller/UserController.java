@@ -1,9 +1,12 @@
 package id.my.hendisantika.jteforms.controller;
 
+import id.my.hendisantika.jteforms.entity.User;
 import id.my.hendisantika.jteforms.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 
 /**
  * Created by IntelliJ IDEA.
@@ -22,4 +25,10 @@ import org.springframework.stereotype.Controller;
 public class UserController {
 
     private final UserRepository userRepository;
+
+    @GetMapping("/")
+    public String index(Model model){
+        model.addAttribute("user", new User());
+        return "index";
+    }
 }
