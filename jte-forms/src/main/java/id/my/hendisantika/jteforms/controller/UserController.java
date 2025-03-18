@@ -2,11 +2,13 @@ package id.my.hendisantika.jteforms.controller;
 
 import id.my.hendisantika.jteforms.entity.User;
 import id.my.hendisantika.jteforms.repository.UserRepository;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 /**
  * Created by IntelliJ IDEA.
@@ -29,6 +31,13 @@ public class UserController {
     @GetMapping("/")
     public String index(Model model){
         model.addAttribute("user", new User());
+        return "index";
+    }
+
+    @PostMapping("/save")
+    public String saveUser(@Valid User user, Model model){
+        userRepository.save(user);
+        model.addAttribute("message","User information was saved successfully");
         return "index";
     }
 }
