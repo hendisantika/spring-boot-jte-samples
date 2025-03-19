@@ -1,0 +1,7 @@
+spring.application.name: jte
+gg:
+  jte:
+    development-mode: true
+spring:
+  application:
+    name: jte
