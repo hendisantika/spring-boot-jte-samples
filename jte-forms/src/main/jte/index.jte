@@ -1,4 +1,4 @@
-@param id.my.hendisantika.jteforms.entity.User
+@param id.my.hendisantika.jteforms.entity.User user
 @param String message = null
 @param String error = null
 

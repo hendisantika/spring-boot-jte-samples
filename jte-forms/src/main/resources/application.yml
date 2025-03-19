@@ -11,3 +11,7 @@ spring:
     compose:
       enabled: true
       lifecycle-management: start_and_stop
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
