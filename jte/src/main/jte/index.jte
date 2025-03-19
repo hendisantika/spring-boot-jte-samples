@@ -1,3 +1,4 @@
+@import id.my.hendisantika.jte.Page
 @import java.util.List
 @param Page page
 @param String name
