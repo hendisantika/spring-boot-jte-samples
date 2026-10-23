@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/hendisantika/spring-boot-jte-samples/actions/workflows/ci.yml/badge.svg)](https://github.com/hendisantika/spring-boot-jte-samples/actions/workflows/ci.yml)
 ![Java](https://img.shields.io/badge/Java-25-orange)
-![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.5.16-brightgreen)
+![Spring Boot](https://img.shields.io/badge/Spring%20Boot-4.1.2-brightgreen)
 ![jte](https://img.shields.io/badge/jte-3.2.4-blue)
 
 Spring Boot samples using [jte](https://jte.gg) (Java Template Engine) for server-side rendered HTML.
@@ -19,8 +19,8 @@ Each module is a standalone Maven project with its own Maven wrapper.
 ## Tech stack
 
 - Java 25
-- Spring Boot 3.5.16 (Web, Validation, Data JDBC, Docker Compose support)
-- jte 3.2.4 + `jte-spring-boot-starter-3` + `jte-maven-plugin` (templates precompiled at build time)
+- Spring Boot 4.1.2 (Web MVC, Validation, Data JDBC, Docker Compose support)
+- jte 3.2.4 + `jte-spring-boot-starter-4` + `jte-maven-plugin` (templates precompiled at build time)
 - Lombok
 - PostgreSQL 17 (jte-forms)
 
@@ -51,6 +51,13 @@ cd jte-forms
 | POST   | `/save` | Validate and save the submitted user |
 
 Templates live in `src/main/jte`. `gg.jte.development-mode: true` in `application.yml` enables hot reload; generated classes go to `jte-classes/` (git-ignored).
+
+When running the packaged jar, switch to the templates precompiled by `jte-maven-plugin`:
+
+```bash
+java -jar target/jte-0.0.1-SNAPSHOT.jar \
+  --gg.jte.development-mode=false --gg.jte.use-precompiled-templates=true
+```
 
 ## Building and testing
 
