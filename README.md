@@ -81,6 +81,16 @@ java -jar target/jte-forms-0.0.1-SNAPSHOT.jar --spring.profiles.active=prod
 
 Each module has a multi-stage `Dockerfile`. It builds the jar with Temurin JDK 25 and runs it on Temurin JRE 25 as a non-root user, with the `prod` profile enabled.
 
+For `jte`, use Docker Compose:
+
+```bash
+cd jte
+docker compose up --build   # http://localhost:8080
+docker compose down
+```
+
+Or build and run the image directly:
+
 ```bash
 docker build -t jte-sample jte
 docker run --rm -p 8080:8080 jte-sample
