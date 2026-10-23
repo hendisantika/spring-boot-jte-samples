@@ -1,0 +1,12 @@
+gg:
+  jte:
+    development-mode: false
+    use-precompiled-templates: true
+spring:
+  docker:
+    compose:
+      enabled: false
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5433/form}
+    username: ${DB_USERNAME:yu71}
+    password: ${DB_PASSWORD:53cret}
