@@ -7,3 +7,23 @@ services:
       - 'POSTGRES_PASSWORD=53cret'
     ports:
       - '5433:5432'
+    healthcheck:
+      test: [ 'CMD-SHELL', 'pg_isready -U yu71 -d form' ]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  # Only started with `docker compose --profile app up`, so Spring Boot's
+  # Docker Compose support keeps starting just Postgres during spring-boot:run
+  app:
+    profiles: [ 'app' ]
+    build: .
+    environment:
+      - 'DB_URL=jdbc:postgresql://postgres:5432/form'
+      - 'DB_USERNAME=yu71'
+      - 'DB_PASSWORD=53cret'
+    ports:
+      - '8080:8080'
+    depends_on:
+      postgres:
+        condition: service_healthy
