@@ -1,0 +1,69 @@
+version: 2
+
+updates:
+  # Maven dependencies for both sample modules
+  - package-ecosystem: maven
+    directories:
+      - /jte
+      - /jte-forms
+    schedule:
+      interval: weekly
+      day: monday
+      time: "06:00"
+      timezone: Asia/Jakarta
+    open-pull-requests-limit: 10
+    labels:
+      - dependencies
+      - java
+    commit-message:
+      prefix: "build(deps)"
+      include: scope
+    groups:
+      spring-boot:
+        patterns:
+          - "org.springframework.boot*"
+      jte:
+        patterns:
+          - "gg.jte*"
+      maven-plugins:
+        patterns:
+          - "org.apache.maven.plugins*"
+    ignore:
+      # Stay on Spring Boot 3.x / jte-spring-boot-starter-3; a major upgrade is a deliberate migration
+      - dependency-name: "org.springframework.boot:spring-boot-starter-parent"
+        update-types: [ "version-update:semver-major" ]
+
+  # GitHub Actions used in workflows
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: "06:00"
+      timezone: Asia/Jakarta
+    labels:
+      - dependencies
+      - github-actions
+    commit-message:
+      prefix: "ci(deps)"
+    groups:
+      github-actions:
+        patterns:
+          - "*"
+
+  # Postgres image in jte-forms compose.yml
+  - package-ecosystem: docker-compose
+    directory: /jte-forms
+    schedule:
+      interval: weekly
+      day: monday
+      time: "06:00"
+      timezone: Asia/Jakarta
+    labels:
+      - dependencies
+      - docker
+    commit-message:
+      prefix: "build(deps)"
+    ignore:
+      - dependency-name: "postgres"
+        update-types: [ "version-update:semver-major" ]
