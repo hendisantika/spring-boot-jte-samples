@@ -52,11 +52,29 @@ cd jte-forms
 
 Templates live in `src/main/jte`. `gg.jte.development-mode: true` in `application.yml` enables hot reload; generated classes go to `jte-classes/` (git-ignored).
 
-When running the packaged jar, switch to the templates precompiled by `jte-maven-plugin`:
+### Running the packaged jar (`prod` profile)
+
+Development mode needs the template sources, so run the jar with the `prod` profile. It turns off development mode and uses the templates precompiled by `jte-maven-plugin`:
 
 ```bash
-java -jar target/jte-0.0.1-SNAPSHOT.jar \
-  --gg.jte.development-mode=false --gg.jte.use-precompiled-templates=true
+cd jte
+./mvnw package
+java -jar target/jte-0.0.1-SNAPSHOT.jar --spring.profiles.active=prod
+```
+
+Spring Boot leaves Docker Compose support out of the jar, so for `jte-forms` you start PostgreSQL yourself (e.g. `docker compose up -d`). The `prod` profile connects to it with these environment variables:
+
+| Variable      | Default                                  |
+|---------------|------------------------------------------|
+| `DB_URL`      | `jdbc:postgresql://localhost:5433/form`  |
+| `DB_USERNAME` | `yu71`                                   |
+| `DB_PASSWORD` | `53cret`                                 |
+
+```bash
+cd jte-forms
+docker compose up -d
+./mvnw package
+java -jar target/jte-forms-0.0.1-SNAPSHOT.jar --spring.profiles.active=prod
 ```
 
 ## Building and testing
