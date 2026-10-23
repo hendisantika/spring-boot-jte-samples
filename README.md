@@ -139,7 +139,20 @@ SPRING_DATASOURCE_PASSWORD=53cret \
 
 ## CI/CD
 
-- **GitHub Actions** ([`.github/workflows/ci.yml`](.github/workflows/ci.yml)): builds and tests both modules on Temurin JDK 25 for every push and pull request to `main`, with a PostgreSQL service container for `jte-forms`. It then builds each module's Docker image.
+- **GitHub Actions** ([`.github/workflows/ci.yml`](.github/workflows/ci.yml)): builds and tests both modules on Temurin JDK 25 for every push and pull request to `main`, with a PostgreSQL service container for `jte-forms`. It then builds each module's Docker image for `linux/amd64` and `linux/arm64`. Pushes to `main` and `v*` tags publish the images to GitHub Container Registry; pull requests only build them.
+
+### Published images
+
+| Image                                                   | Tags                                                  |
+|---------------------------------------------------------|-------------------------------------------------------|
+| `ghcr.io/hendisantika/spring-boot-jte-samples/jte`       | `latest` (main), `sha-<commit>`, `<version>` on `v*` tags |
+| `ghcr.io/hendisantika/spring-boot-jte-samples/jte-forms` | `latest` (main), `sha-<commit>`, `<version>` on `v*` tags |
+
+```bash
+docker run --rm -p 8080:8080 ghcr.io/hendisantika/spring-boot-jte-samples/jte:latest
+```
+
+`jte-forms` needs PostgreSQL. Point `DB_URL` at it, as in [Running with Docker](#running-with-docker).
 - **Dependabot** ([`.github/dependabot.yml`](.github/dependabot.yml)): weekly updates for Maven dependencies (Spring Boot, jte and Maven plugins grouped), GitHub Actions, the Dockerfile base images and the `jte-forms` Docker Compose image.
 
 ## License
