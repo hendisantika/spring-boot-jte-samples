@@ -86,7 +86,15 @@ docker build -t jte-sample jte
 docker run --rm -p 8080:8080 jte-sample
 ```
 
-For `jte-forms`, put the app and PostgreSQL on the same Docker network and set `DB_URL`:
+For `jte-forms`, the easiest way is Docker Compose. The `app` service sits behind the `app` Compose profile, so it only starts when you ask for it. Spring Boot's Docker Compose support (used by `spring-boot:run`) keeps starting just PostgreSQL.
+
+```bash
+cd jte-forms
+docker compose --profile app up --build   # app on http://localhost:8080, Postgres on 5433
+docker compose --profile app down
+```
+
+Or run the containers by hand on a shared network and set `DB_URL`:
 
 ```bash
 docker network create jte-net
