@@ -17,7 +17,6 @@ updates:
       - java
     commit-message:
       prefix: "build(deps)"
-      include: scope
     groups:
       spring-boot:
         patterns:
