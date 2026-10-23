@@ -1,0 +1,7 @@
+target/
+jte-classes/
+.idea/
+*.iml
+.git
+Dockerfile
+.dockerignore
