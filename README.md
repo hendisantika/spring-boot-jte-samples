@@ -87,7 +87,7 @@ The `jte-forms` context test needs a running PostgreSQL (Docker Compose support 
 
 ```bash
 docker run -d --name jte-pg -e POSTGRES_DB=form -e POSTGRES_USER=yu71 -e POSTGRES_PASSWORD=53cret \
-  -p 5433:5432 postgres:17.4-alpine3.21
+  -p 5433:5432 postgres:17.7-alpine3.21
 
 cd jte-forms
 SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5433/form \
