@@ -29,7 +29,7 @@ updates:
         patterns:
           - "org.apache.maven.plugins*"
     ignore:
-      # Stay on Spring Boot 3.x / jte-spring-boot-starter-3; a major upgrade is a deliberate migration
+      # Stay on Spring Boot 4.x / jte-spring-boot-starter-4; a major upgrade is a deliberate migration
       - dependency-name: "org.springframework.boot:spring-boot-starter-parent"
         update-types: [ "version-update:semver-major" ]
 
