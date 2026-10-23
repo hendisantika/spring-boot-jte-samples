@@ -67,3 +67,23 @@ updates:
     ignore:
       - dependency-name: "postgres"
         update-types: [ "version-update:semver-major" ]
+
+  # Base images in each module's Dockerfile
+  - package-ecosystem: docker
+    directories:
+      - /jte
+      - /jte-forms
+    schedule:
+      interval: weekly
+      day: monday
+      time: "06:00"
+      timezone: Asia/Jakarta
+    labels:
+      - dependencies
+      - docker
+    commit-message:
+      prefix: "build(deps)"
+    groups:
+      eclipse-temurin:
+        patterns:
+          - "eclipse-temurin"
