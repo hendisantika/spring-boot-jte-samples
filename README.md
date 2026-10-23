@@ -77,6 +77,29 @@ docker compose up -d
 java -jar target/jte-forms-0.0.1-SNAPSHOT.jar --spring.profiles.active=prod
 ```
 
+### Running with Docker
+
+Each module has a multi-stage `Dockerfile`. It builds the jar with Temurin JDK 25 and runs it on Temurin JRE 25 as a non-root user, with the `prod` profile enabled.
+
+```bash
+docker build -t jte-sample jte
+docker run --rm -p 8080:8080 jte-sample
+```
+
+For `jte-forms`, put the app and PostgreSQL on the same Docker network and set `DB_URL`:
+
+```bash
+docker network create jte-net
+docker run -d --name jte-pg --network jte-net \
+  -e POSTGRES_DB=form -e POSTGRES_USER=yu71 -e POSTGRES_PASSWORD=53cret \
+  postgres:17.7-alpine3.21
+
+docker build -t jte-forms-sample jte-forms
+docker run --rm -p 8080:8080 --network jte-net \
+  -e DB_URL=jdbc:postgresql://jte-pg:5432/form \
+  jte-forms-sample
+```
+
 ## Building and testing
 
 ```bash
@@ -98,8 +121,8 @@ SPRING_DATASOURCE_PASSWORD=53cret \
 
 ## CI/CD
 
-- **GitHub Actions** ([`.github/workflows/ci.yml`](.github/workflows/ci.yml)): builds and tests both modules on Temurin JDK 25 for every push and pull request to `main`, with a PostgreSQL service container for `jte-forms`.
-- **Dependabot** ([`.github/dependabot.yml`](.github/dependabot.yml)): weekly updates for Maven dependencies (Spring Boot, jte and Maven plugins grouped), GitHub Actions and the `jte-forms` Docker Compose image.
+- **GitHub Actions** ([`.github/workflows/ci.yml`](.github/workflows/ci.yml)): builds and tests both modules on Temurin JDK 25 for every push and pull request to `main`, with a PostgreSQL service container for `jte-forms`. It then builds each module's Docker image.
+- **Dependabot** ([`.github/dependabot.yml`](.github/dependabot.yml)): weekly updates for Maven dependencies (Spring Boot, jte and Maven plugins grouped), GitHub Actions, the Dockerfile base images and the `jte-forms` Docker Compose image.
 
 ## License
 
