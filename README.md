@@ -139,7 +139,7 @@ SPRING_DATASOURCE_PASSWORD=53cret \
 
 ## CI/CD
 
-- **GitHub Actions** ([`.github/workflows/ci.yml`](.github/workflows/ci.yml)): builds and tests both modules on Temurin JDK 25 for every push and pull request to `main`, with a PostgreSQL service container for `jte-forms`. It then builds each module's Docker image for `linux/amd64` and `linux/arm64`. Pushes to `main` and `v*` tags publish the images to GitHub Container Registry; pull requests only build them.
+- **GitHub Actions** ([`.github/workflows/ci.yml`](.github/workflows/ci.yml)): builds and tests both modules on Temurin JDK 25 for every push and pull request to `main`, with a PostgreSQL service container for `jte-forms`. It then builds each module's Docker image for `linux/amd64` and `linux/arm64`. Pushes to `main` and `v*` tags publish the images to GitHub Container Registry; pull requests only build them. On `v*` tags it also builds both jars with the tag's version (`v1.2.3` → `1.2.3`) and attaches them, with a `SHA256SUMS` file, to the GitHub Release. It creates the release with generated notes if one doesn't exist yet.
 
 ### Published images
 
