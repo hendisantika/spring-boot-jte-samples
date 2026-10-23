@@ -1,6 +1,7 @@
 # syntax=docker/dockerfile:1
 
-FROM eclipse-temurin:25-jdk-noble AS build
+# Build stage runs on the native build platform; the jar is architecture independent
+FROM --platform=$BUILDPLATFORM eclipse-temurin:25-jdk-noble AS build
 WORKDIR /workspace
 COPY .mvn .mvn
 COPY mvnw pom.xml ./
